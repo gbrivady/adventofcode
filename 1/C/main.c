@@ -4,10 +4,18 @@
 int main(int argc, char const *argv[])
 {
 
-    FILE* p_file = fopen("./input", "r");
+    if (argc <= 1)
+    {
+        printf("Provide an input file!");
+        return 1;
+    }
+    
+    const char* path = argv[1];
+
+    FILE* p_file = fopen(path, "r");
     if (p_file == NULL)
     {
-        printf("Input file empty. Check if it exists.\n");
+        printf("Input file %s not found. Check if it exists.\n", path);
         return 1;
     }
 
