@@ -7,13 +7,13 @@ round2 make_round(char* line){
     switch (line[0])
     {
     case 'A':
-        r.elf = 1; //Rock
+        r.elf = 0; //Rock
         break;
     case 'B':
-        r.elf = 2; //Paper
+        r.elf = 1; //Paper
         break;
     case 'C':
-        r.elf = 3; //Scissor
+        r.elf = 2; //Scissor
         break;
     default:
         break;
@@ -38,16 +38,14 @@ round2 make_round(char* line){
 int round_score(round2 r){
     int elf = r.elf;
     int res  = r.result;
-    printf("%d %d %d\n", elf, res, pos_mod(elf+res, 3));
-
     switch (res)
     {
     case -1:
-        return 0+pos_mod(elf+res, 3);
+        return 0+pos_mod(elf+res, 3)+1;
     case 0:
-        return 3+r.elf;
+        return 3+r.elf+1;
     case 1:
-        return 6+pos_mod(elf+res, 3);
+        return 6+pos_mod(elf+res, 3)+1;
     default:
         return 0;
     }

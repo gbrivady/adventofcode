@@ -1,6 +1,6 @@
 #ifndef ROUND2_H
 #define ROUND2_H
-#define pos_mod(i, n) (i == n ? n : (i == 0 ? n : ((i % n + n) % n) ))
+#define pos_mod(i, n) ((i % n + n) % n)
 
 struct round2
 {
