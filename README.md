@@ -1,7 +1,6 @@
 # Advent of Code 2022
 
-Each folder of each day corresponds to a different language for a solution. Some solutions may be (on purpose) "a little bit" (or very much, depending on my mood) less efficients.
-Generally speaking, if they are several languages, the Python solution is highly likely to be... Somewhat of a waste of electrons :)
+Each folder of each day corresponds to a different language for a solution. Most of them are C, but some have other languages.
 
 ## Progression
 
@@ -10,7 +9,7 @@ List of every day, with every challenge. The mark is my opinion on my solution :
 - [x] Day  1 : C 2/3; Python 1/3
 - [x] Day  2 : C 1/3
 - [x] Day  3 : C 3/3
-- [ ] Day  4 : Not available
+- [x] Day  4 : C 1/3
 - [ ] Day  5 : Not available
 - [ ] Day  6 : Not available
 - [ ] Day  7 : Not available
