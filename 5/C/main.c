@@ -1,12 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-struct stack
-{
-    int* stack_content;
-    int end;
-} typedef stack;
+#include "../../utils/ip_stack.h"
 
 int read_stack_letter(char* buf, int offset){
     if(buf[offset] == '[')
@@ -14,43 +9,28 @@ int read_stack_letter(char* buf, int offset){
     return -1;
 }
 
-stack* read_stacks(FILE* p_file){
+ip_stack* init_stacks(FILE* p_file){
 
-    stack* stack_array = malloc(9*sizeof(stack));
+    ip_stack* stack_array = malloc(9*sizeof(ip_stack));
     for (int i = 0; i < 9; i++)
-    {
-        stack_array[i].stack_content = malloc(8*9*sizeof(int));
-        stack_array[i].end = 0;
-    }
-    
-    char buffer0[100];    
-    char buffer1[100];    
-    char buffer2[100];    
-    char buffer3[100];    
-    char buffer4[100];    
-    char buffer5[100];    
-    char buffer6[100];
-    char buffer7[100];
+        stack_array[i] = get_empty(64);
+
+    char buffer0[100], buffer1[100], 
+        buffer2[100], buffer3[100], 
+        buffer4[100], buffer5[100], 
+        buffer6[100], buffer7[100];
+
     char* buffers[8] = {buffer0, buffer1, buffer2, buffer3, buffer4, buffer5, buffer6, buffer7};
     for (int i = 0; i < 8; i++)
-    {
         fgets(buffers[i], 100, p_file);
-    }
+
     int letter;
     int offset;
-    for (int i = 7; i >= 0; i--)
-    {
-        offset = 0;
-        for (int j = 0; j < 9; j++)
-        {
-            letter = read_stack_letter(buffers[i], offset);
+    for (int i = 7; i >= 0; i--){
+        for (int j = 0; j < 9; j++){
+            letter = read_stack_letter(buffers[i], j*4);
             if (letter != -1)
-            {
-                stack_array[j].stack_content[stack_array[j].end] = letter;
-                stack_array[j].end += 1;
-            }
-            offset += 4;
-            
+                push(&(stack_array[j]), letter);            
         }
         
     }
@@ -58,64 +38,71 @@ stack* read_stacks(FILE* p_file){
     return stack_array;
 }
 
-void do_line(char* line, stack* stack_array){
+void do_line1(char* line, ip_stack* stack_array){
+    int nb, from, to;
+    sscanf(line, "move %d from %d to %d", &nb, &from, &to);
+    from--;
+    to--;
+    for (int i = 0; i < nb; i++)
+        push(&(stack_array[to]), pop(&(stack_array[from])));
+}
+
+void do_line2(char* line, ip_stack* stack_array){
     int nb, from, to;
     sscanf(line, "move %d from %d to %d", &nb, &from, &to);
     from--;
     to--;
     int poped;
-    stack temp;
+    ip_stack temp;
     int temp_cont[100] = {0};
-    temp.stack_content = temp_cont;
-    temp.end = 0;
+    temp._max_size = 100;
+    temp.content = temp_cont;
+    temp.size = 0;
     for (int i = 0; i < nb; i++)
-    {
-        poped = stack_array[from].stack_content[stack_array[from].end-1];
-        stack_array[from].end--;
-        temp.stack_content[temp.end] = poped;
-        temp.end++;
-    }
-    for (int i = 0; i < nb; i++)
-    {
-        poped = temp.stack_content[temp.end-1];
-        temp.end--;
-        stack_array[to].stack_content[stack_array[to].end] = poped;
-        stack_array[to].end++;
+        push(&temp, pop(&(stack_array[from])));
+    for (int i = 0; i < nb; i++){
+        poped = temp.content[temp.size-1];
+        temp.size--;
+        push(&(stack_array[to]), poped);
     }
     
 }
 
 int main(int argc, char const *argv[])
 {
+    if (argc <= 1){
+        printf("Provide a challenge number!");
+        return 1;
+    }
+    int challenge_num = atoi(argv[1])-1;
+
     FILE* p_file = fopen("input", "r");
     if (p_file == NULL){
         printf("Input file not found. Check if it exists.\n");
         return 1;
     }
 
-    stack* stack_arr = read_stacks(p_file);
-    for (int i = 0; i < 9; i++)
-    {
-        printf("%c ", stack_arr[i].stack_content[stack_arr[i].end-1]);
-    }
-    
+    ip_stack* stack_arr = init_stacks(p_file);
+
+    // return 0;
     char buffer[100];   
     fgets(buffer, 100, p_file);
     fgets(buffer, 100, p_file);
 
     while (fgets(buffer, 100, p_file))
     {
-        do_line(buffer, stack_arr);
-        for (int i = 0; i < 9; i++)
-        {
-            printf("%c ", stack_arr[i].stack_content[stack_arr[i].end-1]);
-        }
+        if(challenge_num)
+            do_line2(buffer, stack_arr);
+        else
+            do_line1(buffer, stack_arr);
+
     }
 
     for (int i = 0; i < 9; i++)
     {
-        stack_arr[i].end > 0 ? printf("%c", stack_arr[i].stack_content[stack_arr[i].end-1]) : (printf(""));
+        stack_arr[i].size > 0 ? printf("%c", stack_arr[i].content[stack_arr[i].size-1]) : (printf(""));
+        free_stack(&(stack_arr[i]));
     }
-    
+    free(stack_arr);
     return 0;
 }
