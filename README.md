@@ -10,7 +10,7 @@ List of every day, with every challenge. The mark is my opinion on my solution :
 - [x] Day  2 : C 1/3
 - [x] Day  3 : C 3/3
 - [x] Day  4 : C 1/3
-- [ ] Day  5 : Not available
+- [x] Day  5 : C 2.5/3
 - [ ] Day  6 : Not available
 - [ ] Day  7 : Not available
 - [ ] Day  8 : Not available
