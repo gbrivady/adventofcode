@@ -8,6 +8,7 @@ void _grow(ip_stack* s){
 ip_stack get_empty(int max_size){
     ip_stack s;
     s.content = malloc(max_size*sizeof(int));
+    s._max_size = max_size;
     s.size = 0;
     return s;
 }
