@@ -21,7 +21,7 @@ Time is `hh:mm:ss`, and using a separate timer - as `UTC-5` is a bit rough.
 |10|✅| 00:12:52 | 00:14:21 | 00:27:13 | C 3/3   |
 |11|✅| 01:00:46 | 01:01:59 | 02:02:45 | C 1/3   |
 |12|✅| 01:58:43 | 00:11:53 | 02:10:36 | C 3/3   |
-|13|❓|•|•|•|•|
+|13|✅| 00:28:25 | 00:06:45 | 00:35:10 | Python 1/3, see Remarks |
 |14|❓|•|•|•|•|
 |15|❓|•|•|•|•|
 |16|❓|•|•|•|•|
@@ -34,3 +34,7 @@ Time is `hh:mm:ss`, and using a separate timer - as `UTC-5` is a bit rough.
 |23|❓|•|•|•|•|
 |24|❓|•|•|•|•|
 |25|❓|•|•|•|•|
+
+### Remarks
+
+- Day 13: had an issue with parsing the output using `mingw-gcc` on Windows, so no C solution. Retimed only the part where I did `python` code
