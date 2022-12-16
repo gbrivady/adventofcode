@@ -10,13 +10,13 @@
 struct ip_stack
 {
     int* content;
-    int size;
-    int _max_size;
+    unsigned int size;
+    unsigned int _max_size;
 
 } typedef ip_stack;
 
 void _grow(ip_stack* s);
-ip_stack get_empty(int max_size);
+ip_stack get_empty(unsigned int max_size);
 
 void push(ip_stack* s, int n);
 int pop(ip_stack* s);
