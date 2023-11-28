@@ -1,0 +1,8 @@
+[package]
+name = "aoc2023"
+version = "0.1.0"
+edition = "2021"
+authors=["Gregory Brivady"]
+
+[dependencies]
+itertools = "0.12.0"
