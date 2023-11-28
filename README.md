@@ -41,4 +41,4 @@ Time is `hh:mm:ss`, and using a separate timer - as `UTC-5` is a bit rough.
 
 ### Remarks
 
-- Day 13: had an issue with parsing the output using `mingw-gcc` on Windows, so no C solution. Retimed only the part where I did `python` code
+None so far
