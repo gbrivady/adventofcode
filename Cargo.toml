@@ -6,3 +6,4 @@ authors=["Gregory Brivady"]
 
 [dependencies]
 itertools = "0.12.0"
+sscanf = "0.4.1"
