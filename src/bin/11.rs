@@ -56,12 +56,12 @@ fn main() {
     let mut space_expansion_h: Vec<usize> = Vec::new();
 
     for i in 0..n {
-        if (0..m).fold(true, |acc, j| acc && (space[i][j] == '.')) {
+        if !(0..m).any(|j| space[i][j] == '#') {
             space_expansion_h.push(i);
         }
     }
     for j in 0..m {
-        if (0..n).fold(true, |acc, i| acc && (space[i][j] == '.')) {
+        if !(0..n).any(|i| space[i][j] == '#') {
             space_expansion_v.push(j);
         }
     }
