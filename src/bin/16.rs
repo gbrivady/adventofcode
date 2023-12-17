@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::HashSet;
 use std::fs::read_to_string;
 
 #[derive(Clone, Copy, Hash, PartialEq, Eq)]
@@ -33,7 +33,7 @@ fn simulate_beam(
     i: usize,
     j: usize,
     direction: Direction,
-    cache: &mut HashMap<(usize, usize, Direction), u8>,
+    cache: &mut HashSet<(usize, usize, Direction)>,
     input: &Vec<Vec<char>>,
     grid: &mut Vec<Vec<bool>>,
 ) -> Vec<(usize, usize, Direction)> {
@@ -64,25 +64,25 @@ fn simulate_beam(
         match d {
             Direction::Up => {
                 if i > 0 && cache.get(&(i - 1, j, d)).is_none() {
-                    cache.insert((i - 1, j, d), 1);
+                    cache.insert((i - 1, j, d));
                     to_call.push((i - 1, j, d));
                 }
             }
             Direction::Down => {
                 if i < grid.len() - 1 && cache.get(&(i + 1, j, d)).is_none() {
-                    cache.insert((i + 1, j, d), 1);
+                    cache.insert((i + 1, j, d));
                     to_call.push((i + 1, j, d));
                 }
             }
             Direction::Left => {
                 if j > 0 && cache.get(&(i, j - 1, d)).is_none() {
-                    cache.insert((i, j - 1, d), 1);
+                    cache.insert((i, j - 1, d));
                     to_call.push((i, j - 1, d));
                 }
             }
             Direction::Right => {
                 if j < grid[0].len() - 1 && cache.get(&(i, j + 1, d)).is_none() {
-                    cache.insert((i, j + 1, d), 1);
+                    cache.insert((i, j + 1, d));
                     to_call.push((i, j + 1, d));
                 }
             }
@@ -109,8 +109,8 @@ fn main() {
             Direction::Left,
         ] {
             let mut energized: Vec<Vec<bool>> = vec![vec![false; input[0].len()]; input.len()];
-            let mut cache: HashMap<(usize, usize, Direction), u8> = HashMap::new();
-            cache.insert((i, 0, d), 0);
+            let mut cache: HashSet<(usize, usize, Direction)> = HashSet::new();
+            cache.insert((i, 0, d));
             let mut to_call = vec![(i, 0, d)];
             while !to_call.is_empty() {
                 let mut new_calls: Vec<(usize, usize, Direction)> = Vec::new();
@@ -125,7 +125,6 @@ fn main() {
                     ));
                 }
                 to_call = new_calls;
-                // println!("{} {}", to_call.len(), cache.len());
             }
             results.push(energized.iter().fold(0, |acc, line| {
                 acc + line.iter().fold(0, |acc, cell| {
@@ -148,8 +147,8 @@ fn main() {
             Direction::Left,
         ] {
             let mut energized: Vec<Vec<bool>> = vec![vec![false; input[0].len()]; input.len()];
-            let mut cache: HashMap<(usize, usize, Direction), u8> = HashMap::new();
-            cache.insert((i, m - 1, d), 0);
+            let mut cache: HashSet<(usize, usize, Direction)> = HashSet::new();
+            cache.insert((i, m - 1, d));
             let mut to_call = vec![(i, m - 1, d)];
             while !to_call.is_empty() {
                 let mut new_calls: Vec<(usize, usize, Direction)> = Vec::new();
@@ -164,7 +163,6 @@ fn main() {
                     ));
                 }
                 to_call = new_calls;
-                // println!("{} {}", to_call.len(), cache.len());
             }
             results.push(energized.iter().fold(0, |acc, line| {
                 acc + line.iter().fold(0, |acc, cell| {
@@ -187,8 +185,8 @@ fn main() {
             Direction::Left,
         ] {
             let mut energized: Vec<Vec<bool>> = vec![vec![false; input[0].len()]; input.len()];
-            let mut cache: HashMap<(usize, usize, Direction), u8> = HashMap::new();
-            cache.insert((0, j, d), 0);
+            let mut cache: HashSet<(usize, usize, Direction)> = HashSet::new();
+            cache.insert((0, j, d));
             let mut to_call = vec![(0, j, d)];
             while !to_call.is_empty() {
                 let mut new_calls: Vec<(usize, usize, Direction)> = Vec::new();
@@ -203,7 +201,6 @@ fn main() {
                     ));
                 }
                 to_call = new_calls;
-                // println!("{} {}", to_call.len(), cache.len());
             }
             results.push(energized.iter().fold(0, |acc, line| {
                 acc + line.iter().fold(0, |acc, cell| {
@@ -226,8 +223,8 @@ fn main() {
             Direction::Left,
         ] {
             let mut energized: Vec<Vec<bool>> = vec![vec![false; input[0].len()]; input.len()];
-            let mut cache: HashMap<(usize, usize, Direction), u8> = HashMap::new();
-            cache.insert((n - 1, j, d), 0);
+            let mut cache: HashSet<(usize, usize, Direction)> = HashSet::new();
+            cache.insert((n - 1, j, d));
             let mut to_call = vec![(n - 1, j, d)];
             while !to_call.is_empty() {
                 let mut new_calls: Vec<(usize, usize, Direction)> = Vec::new();
@@ -242,7 +239,6 @@ fn main() {
                     ));
                 }
                 to_call = new_calls;
-                // println!("{} {}", to_call.len(), cache.len());
             }
             results.push(energized.iter().fold(0, |acc, line| {
                 acc + line.iter().fold(0, |acc, cell| {
