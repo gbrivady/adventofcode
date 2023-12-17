@@ -63,25 +63,25 @@ fn simulate_beam(
     for d in new_directions {
         match d {
             Direction::Up => {
-                if i > 0 && cache.get(&(i - 1, j, d)).is_none() {
+                if i > 0 && !cache.contains(&(i - 1, j, d)) {
                     cache.insert((i - 1, j, d));
                     to_call.push((i - 1, j, d));
                 }
             }
             Direction::Down => {
-                if i < grid.len() - 1 && cache.get(&(i + 1, j, d)).is_none() {
+                if i < grid.len() - 1 && !cache.contains(&(i + 1, j, d)) {
                     cache.insert((i + 1, j, d));
                     to_call.push((i + 1, j, d));
                 }
             }
             Direction::Left => {
-                if j > 0 && cache.get(&(i, j - 1, d)).is_none() {
+                if j > 0 && !cache.contains(&(i, j - 1, d)) {
                     cache.insert((i, j - 1, d));
                     to_call.push((i, j - 1, d));
                 }
             }
             Direction::Right => {
-                if j < grid[0].len() - 1 && cache.get(&(i, j + 1, d)).is_none() {
+                if j < grid[0].len() - 1 && !cache.contains(&(i, j + 1, d)) {
                     cache.insert((i, j + 1, d));
                     to_call.push((i, j + 1, d));
                 }
