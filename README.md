@@ -35,11 +35,12 @@ Time is `hh:mm:ss`, and using a separate timer - as `UTC-5` is a bit rough.
 |20|✅| 02:18:45 | 00:55:58 | 03:54:43 | 1 |
 |21|👻| 00:07:08 | --:--:-- | --:--:-- | 2 |
 |22|✅| 01:34:15 | 00:45:11 | 02:19:26 | 1 |
-|23|❓|•|•|•|•|
-|24|❓|•|•|•|•|
-|25|❓|•|•|•|•|
+|23|👻|•|•|•|•|
+|24|👻|•|•|•|•|
+|25|👻|•|•|•|•|
 
 ### Remarks
 
 - I think day 09 can be done with a one liner by calling several maps on iterators, and I tried to get as close as possible to that - but I think I failed
 - Did not try part 2 of day 21: too many assumption about inputs do to it mathematically, part 1 way too easy in comparison, not a fan at all
+- Part 1 of 23/24/25 done, will had code if I clean my heuristics to work more than half of the time
